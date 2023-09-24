@@ -3,7 +3,11 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const routerIndex = require('./src/routes/index.routes');
+const { connectDB } = require('./src/config/db');
 require('dotenv').config();
+
+// CONNECT APP TO DATABASE
+connectDB();
 
 // MIDDLEWARES
 app.use(cors());
