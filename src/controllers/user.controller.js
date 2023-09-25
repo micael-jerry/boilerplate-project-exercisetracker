@@ -1,22 +1,21 @@
-const { UserModel } = require("../models/user.model");
+const { findAllUsers, findUserById, saveUser } = require("../services/user.service");
 
-const getUsers = async (req, res) => {
-    const users = await UserModel.find();
-    res.json(users);
+const getUsers = (req, res) => {
+    findAllUsers()
+        .then((r) => res.json(r))
+        .catch((e) => res.status(400).json(e));
 }
 
-const getUserById = async (req, res) => {
-    const user = await UserModel.findById(req.params.id);
-    res.json(user);
+const getUserById = (req, res) => {
+    findUserById(req.params.userId)
+        .then((r) => res.json(r))
+        .catch((e) => res.status(400).json(e));
 }
 
 const postUser = async (req, res) => {
-    let createUser = UserModel({
-        username: req.body.username
-    });
-    createUser.save()
-        .then((saveRes) => res.json(saveRes))
-        .catch((saveErr) => res.status(400).json(saveErr));
+    saveUser(req.body)
+        .then((r) => res.json(r))
+        .catch((e) => res.status(400).json(e));
 }
 
 module.exports.getUsers = getUsers;
