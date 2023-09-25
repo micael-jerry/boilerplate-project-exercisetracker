@@ -2,8 +2,9 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const routerIndex = require('./src/routes/index.routes');
 const { connectDB } = require('./src/config/db');
+const routerIndex = require('./src/routes/index.routes');
+const routerUser = require('./src/routes/user.routes');
 require('dotenv').config();
 
 // CONNECT APP TO DATABASE
@@ -16,6 +17,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 // ROUTES
 app.use('/', routerIndex);
+// user
+app.use('/api/users', routerUser);
 
 
 
