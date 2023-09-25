@@ -22,9 +22,16 @@ const saveExercise = async (userId, exercise) => {
     return exerciseMapperToRest(user, exerciseSaved);
 }
 
-const findAllExercises = async (userId) => {
+const findAllExercises = async (userId, from, to, limit) => {
     let user = await findUserById(userId);
-    let exercises = await ExerciseModel.find({"userId": userId});
+    let exercises = await ExerciseModel.find({
+        userId: userId,
+        date: {
+            $gte: from,
+            $lte: to
+        }
+    }).limit(limit)
+
     return exercises.map((e) => exerciseMapperToRest(user, e));
 }
 

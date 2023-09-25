@@ -9,9 +9,9 @@ const logMapperToRest = (exercise) => {
     }
 }
 
-const findAllLogs = async (userId) => {
+const findAllLogs = async (userId, from, to, limit) => {
     let user = await findUserById(userId);
-    let exercises = await findAllExercises(userId);
+    let exercises = await findAllExercises(userId, from, to, limit);
     return {
         _id: user._id,
         username: user.username,
